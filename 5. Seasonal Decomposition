@@ -1,0 +1,10 @@
+from statsmodels.tsa.seasonal import seasonal_decompose
+
+# Decompose the time series
+decomposition = seasonal_decompose(df["Total_FTAs"], model='multiplicative', period=12)
+
+# Plot the seasonal trends
+plt.figure(figsize=(12, 8))
+decomposition.seasonal.plot(title="Seasonal Trends in FTAs")
+plt.grid()
+plt.show()
