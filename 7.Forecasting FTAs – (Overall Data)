@@ -1,0 +1,43 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.holtwinters import ExponentialSmoothing
+
+# Create a DataFrame manually (Ensure you have the correct data here)
+data = {
+    "Month": [
+        "January 2023", "February 2023", "March 2023", "April 2023", "May 2023", "June 2023",
+        "July 2023", "August 2023", "September 2023", "October 2023", "November 2023", "December 2023",
+        "January 2024", "February 2024", "March 2024", "April 2024", "May 2024", "June 2024",
+        "July 2024", "August 2024", "September 2024", "October 2024", "November 2024", "December 2024"
+    ],
+    "Total_FTAs": [
+        980000, 950000, 900000, 860000, 800000, 850000, 890000, 870000, 860000, 920000, 960000, 1020000,
+        959000, 1000000, 860000, 651000, 600000, 706000, 776000, 636000, 670000, 820000, 948000, 1030000
+    ]
+}
+
+df = pd.DataFrame(data)
+
+# Specify the date format explicitly
+df["Month"] = pd.to_datetime(df["Month"], format="%B %Y")
+df.set_index("Month", inplace=True)
+
+# Apply Holt's Linear Trend Model
+model = ExponentialSmoothing(df["Total_FTAs"], trend="add", seasonal=None)
+fit = model.fit()
+
+# Forecast for 12 months (2025)
+future_months = pd.date_range(start="2025-01-01", periods=12, freq='ME')  # Use 'M' for month-end
+forecast = fit.forecast(12)
+
+# Plot the results
+plt.figure(figsize=(12, 6))
+plt.plot(df.index, df["Total_FTAs"], label="Actual FTAs", color='blue')
+plt.plot(future_months, forecast, label="Predicted FTAs (2025)", linestyle="dashed", color='red')
+plt.xlabel("Month")
+plt.ylabel("Total Foreign Tourist Arrivals")
+plt.title("Predicted Total FTAs for 2025")
+plt.legend()
+plt.grid()
+plt.show()
