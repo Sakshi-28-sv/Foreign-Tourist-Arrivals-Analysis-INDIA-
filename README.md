@@ -1,5 +1,5 @@
 # Foreign Tourist Arrivals (FTAs) Analysis
-
+(https://jupyter.org/try-jupyter/lab/index.html?path=Tourist.ipynb) 
 Overview
 
 Foreign Tourist Arrivals (FTAs) analysis provides insights into the trends, seasonal patterns, and country-wise distribution of foreign tourists visiting India. This analysis helps in understanding growth trends, predicting future arrivals, and identifying key contributors to India’s tourism sector.
